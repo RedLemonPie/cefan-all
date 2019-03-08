@@ -120,7 +120,7 @@ export default new Router({
         },
         {
           // 文件管理
-          path: 'filemanager/list',
+          path: 'filemanager/list ',
           name: 'filemanager',
           meta: {
             name: '文件管理',

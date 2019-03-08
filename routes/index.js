@@ -54,6 +54,20 @@ router.get('/article/list', ArticleController.list);
 // 搜索文章
 router.get('/article/search', ArticleController.search)
 
+
+// 创建文章
+router.post('/product/create', ProductController.create);
+// 获取文章详情
+router.get('/product/detail/:product_id', ProductController.detail);
+// 删除文章
+router.delete('/product/delete/:product_id', ProductController.delete);
+// 更改文章
+router.post('/product/update/:product_id', ProductController.update);
+// 获取文章列表
+router.get('/product/list', ProductController.list);
+// 搜索文章
+// router.get('/article/search', ProductController.search)
+
 /**
  * 规格接口
  */

@@ -15,8 +15,8 @@ class productController {
         if (req.product_name
         ) {
             try {
-                const ret = await ProductModel.createArticle(req);
-                const data = await ProductModel.getArticleDetail(ret.id);
+                const ret = await ProductModel.create(req);
+                const data = await ProductModel.findProductById(ret.product_id);
 
                 ctx.response.status = 200;
                 ctx.body = statusCode.SUCCESS_200('创建文章成功', data);
@@ -54,9 +54,8 @@ class productController {
      * @returns {Promise.<void>}
      */
     static async list(ctx) {
-        let params = ctx.query;
         try {
-            const data = await ArticleModel.getArticleList(params);
+            const data = await ProductModel.findAllProduct();
             ctx.response.status = 200;
             ctx.body = statusCode.SUCCESS_200('查询文章列表成功！', data)
         } catch (e) {
@@ -72,11 +71,11 @@ class productController {
      * @returns {Promise.<void>}
      */
     static async detail(ctx) {
-        let id = ctx.params.id;
+        let product_id = ctx.params.product_id;
 
-        if (id) {
+        if (product_id) {
             try {
-                let data = await ArticleModel.getArticleDetail(id);
+                let data = await ProductModel.findProductById(product_id);
                 ctx.response.status = 200;
                 ctx.body = statusCode.SUCCESS_200('查询成功！', {
                     data
@@ -102,13 +101,13 @@ class productController {
      * @returns {Promise.<void>}
      */
     static async delete(ctx) {
-        let id = ctx.params.id;
+        let product_id = ctx.params.product_id;
 
-        if (id && !isNaN(id)) {
+        if (product_id && !isNaN(product_id)) {
             try {
-                await ArticleModel.deleteArticle(id);
+                await ProductModel.delete(product_id);
                 ctx.response.status = 200;
-                ctx.body = statusCode.SUCCESS_200('删除文章成功！');
+                ctx.body = statusCode.SUCCESS_200('删除产品成功！');
 
             } catch (err) {
                 ctx.response.status = 200;
@@ -120,7 +119,7 @@ class productController {
             }
         } else {
             ctx.response.status = 412;
-            ctx.body = statusCode.ERROR_412('文章ID必须传！');
+            ctx.body = statusCode.ERROR_412('产品ID必须传！');
         }
     }
 
@@ -131,11 +130,11 @@ class productController {
      */
     static async update(ctx) {
         let req = ctx.request.body;
-        let id = ctx.params.id;
+        let product_id = ctx.params.product_id;
 
         if (req) {
-            await ArticleModel.updateArticle(id, req);
-            let data = await ArticleModel.getArticleDetail(id);
+            await ProductModel.updateProductInfo(product_id, req);
+            let data = await ProductModel.findProductById(product_id    );
 
             ctx.response.status = 200;
             ctx.body = statusCode.SUCCESS_200('更新文章成功！', data);

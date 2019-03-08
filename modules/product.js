@@ -19,7 +19,14 @@ class ProductModel {
         let {product_name,product_en_name,product_introduce,product_en_introduce,article_id,article_en_id,category_id,product_status} = product;
         console.log(product)
         await Product.create({
-            product_name,product_en_name,product_introduce,product_en_introduce,article_id,article_en_id,category_id,product_status
+            product_name,
+            product_en_name,
+            product_introduce,
+            product_en_introduce,
+            article_id,
+            article_en_id,
+            category_id,
+            product_status
         })
         return true
     }

@@ -2,7 +2,7 @@
   <section class="login">
     <article class="login-box">
       <div class="login-logo">
-        <img src="http://images.boblog.com/BOBLOG-03.png" alt="">
+
       </div>
       <Form ref="formInline" :model="formInline" :rules="ruleInline">
         <FormItem prop="username">
