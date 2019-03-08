@@ -1,7 +1,7 @@
 const db = require('../config/db');
 const Sequelize = db.sequelize;
 const Category = Sequelize.import('../schema/category');
-const Article = Sequelize.import('../schema/article');
+const Product = Sequelize.import('../schema/Product');
 
 Category.sync({force: false});
 
@@ -12,8 +12,10 @@ class CategoryModel {
      * @returns {Promise<*>}
      */
     static async createCategory(data) {
+        console.log(data)
         return await Category.create({
-            name: data.name
+            category_name: data.category_name,
+            parent_id: data.parent_id
         })
     }
 
@@ -23,14 +25,15 @@ class CategoryModel {
      * @param data  事项的状态
      * @returns {Promise.<boolean>}
      */
-    static async updateCategory(id, data) {
+    static async updateCategory(category_id, data) {
         await Category.update({
-            name: data.name
+            category_name: data.category_name,
+            parnet_id: data.parnet_id
         }, {
             where: {
-                id
+                category_id
             },
-            fields: ['name']
+            fields: ['category_name','parnet_id']
         });
         return true
     }
@@ -41,44 +44,59 @@ class CategoryModel {
      */
     static async getCategoryList() {
         return await Category.findAll({
-            attributes: ['id', 'name'],
+            attributes: ['category_id', 'category_name','parent_id'],
         })
     }
 
+    /**
+     * 获取节点分类列表
+     * @returns {Promise<*>}
+     */
+    static async getCategoryListByParent(parent_id) {
+        return await Category.findAll({
+            where:{
+                parent_id
+            },
+            attributes: ['category_id', 'category_name','parent_id'],
+        })
+    }
+
+
+
     // 查询ID分类下的所有文章
-    static async getCategoryArticleList(id) {
+    static async getCategoryProductList(category_id) {
         return await Category.findAll({
             where: {
-                id,
+                category_id,
             },
             include: [{
-                model: Article
+                model: Product
             }]
         })
     }
 
     /**
      * 获取分类详情数据
-     * @param id  文章ID
+     * @param category_id  文章ID
      * @returns {Promise<Model>}
      */
-    static async getCategoryDetail(id) {
+    static async getCategoryDetail(category_id) {
         return await Category.findOne({
             where: {
-                id,
+                category_id,
             },
         })
     }
 
     /**
      * 删除分类
-     * @param id
+     * @param category_id
      * @returns {Promise.<boolean>}
      */
-    static async deleteCategory(id) {
+    static async deleteCategory(category_id) {
         await Category.destroy({
             where: {
-                id,
+                category_id,
             }
         })
         return true

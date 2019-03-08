@@ -1,6 +1,6 @@
 const moment = require('moment');
 module.exports = function (sequelize, DataTypes) {
-    return sequelize.define('product', {
+    return sequelize.define('picture', {
         // 图片ID
         picture_id: {
             type: DataTypes.INTEGER,

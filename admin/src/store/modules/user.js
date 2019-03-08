@@ -42,7 +42,18 @@ const actions = {
    * @return {Promise<void>}
    */
   async userList({state, commit}, params) {
-    return await user.list(params);
+    return await user.userList(params);
+  },
+
+  /**
+   * 管理员列表
+   * @param state
+   * @param commit
+   * @param params
+   * @return {Promise<void>}
+   */
+  async adminList({state, commit}, params) {
+    return await user.adminlist(params);
   },
 
   /**
@@ -54,6 +65,17 @@ const actions = {
    */
   async deleteUser({state, commit}, id) {
     return await user.delete(id);
+  },
+
+  /**
+   * 更新用户
+   * @param state
+   * @param commit
+   * @param id
+   * @return {Promise<void>}
+   */
+  async updateUser({state, commit}, params) {
+    return await user.updateUser(params);
   },
 
   /**
@@ -73,7 +95,8 @@ const actions = {
 
       return ret.data.data;
     }
-  }
+  },
+
 }
 
 export default {

@@ -17,17 +17,17 @@ module.exports = function () {
                     payload = await verify(token.split(' ')[1], secret.sign)  // 解密payload，获取用户名和ID
                     ctx.user = {
                         name: payload.name,
-                        id: payload.id
+                        id: payload.id,
+                        level: payload.level
                     }
                 } catch (err) {
-
                     err.status = 401;
                     ctx.body = statusCode.ERROR_401('Token verify fail');
                 }
             }
             await next()
         } catch (err) {
-            applogger.error(err);
+            // applogger.error(err);
             if (err.status === 401) {
                 ctx.status = 401;
                 ctx.body = statusCode.ERROR_401('Unauthorized，请求需要用户的身份认证！');

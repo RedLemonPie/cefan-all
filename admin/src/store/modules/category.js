@@ -32,8 +32,18 @@ const actions = {
 
     return ret.data.data;
   },
-
-
+  /**
+   * 获取分类列表
+   * @param state
+   * @param commit
+   * @param params
+   * @returns {Promise<void>}
+   */
+  async getCategoryListByParent({state, commit}, id) {
+    let ret = await category.getlistbyparent(id);
+    // commit("SET_CATEGORY_LIST", ret.data.data);
+    return ret.data.data;
+  },
   /**
    * 创建分类
    * @param state

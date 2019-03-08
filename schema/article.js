@@ -12,20 +12,8 @@ module.exports = function (sequelize, DataTypes) {
         article_title: {
             type: DataTypes.STRING,
             allowNull: false,
-            field: 'title',
+            field: 'article_title',
         },
-        // 文章作者
-        // article_author: {
-        //     type: DataTypes.STRING,
-        //     allowNull: false,
-        //     field: 'author',
-        // },
-        // 是否推荐
-        // recommend: {
-        //     type: DataTypes.BOOLEAN,
-        //     allowNull: false,
-        //     defaultValue: false
-        // },
         // 是否启用
         status: {
             type: DataTypes.BOOLEAN,
@@ -64,6 +52,7 @@ module.exports = function (sequelize, DataTypes) {
             field: 'browser',
             defaultValue: 0
         },
+
         createdAt: {
             type: DataTypes.DATE,
             get() {

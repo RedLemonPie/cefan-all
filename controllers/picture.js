@@ -1,7 +1,6 @@
-const PictureModel = require('../modules/PictureModel')
+const PictureModel = require('../modules/picture')
 const db = require('../config/db');
 const Sequelize = db.sequelize;
-// const Category = Sequelize.import('../schema/category');
 
 const statusCode = require('../util/status-code')
 
@@ -11,7 +10,7 @@ class PictureController {
      * @param ctx
      * @returns {Promise.<void>}
      */
-    static async addPicture(ctx) {
+        static async addPicture(ctx) {
         let req = ctx.request.body;
 
         if (req.picture_title

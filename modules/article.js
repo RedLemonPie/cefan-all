@@ -18,8 +18,7 @@ class ArticleModel {
      */
     static async createArticle(data) {
         return await Article.create({
-            title: data.title,
-            author: data.author,
+            article_title: data.article_title,
             introduce: data.introduce,
             category: data.category,
             banner: data.banner,
@@ -36,8 +35,7 @@ class ArticleModel {
      */
     static async updateArticle(id, data) {
         await Article.update({
-            title: data.title,
-            author: data.author,
+            article_title: data.article_title,
             introduce: data.introduce,
             category: data.category,
             banner: data.banner,
@@ -89,7 +87,7 @@ class ArticleModel {
                     category: category
                 },
                 'order': [
-                    ['id', 'DESC']
+                    ['article_id', 'DESC']
                 ],
                 attributes: {exclude: ['content']}
             });
@@ -102,7 +100,7 @@ class ArticleModel {
                     title
                 },
                 'order': [
-                    ['id', 'DESC']
+                    ['article_id', 'DESC']
                 ],
                 attributes: {exclude: ['content']}
             });
@@ -115,7 +113,7 @@ class ArticleModel {
                     recommend
                 },
                 'order': [
-                    ['id', 'DESC']
+                    ['article_id', 'DESC']
                 ],
                 attributes: {exclude: ['content']}
             });
@@ -125,7 +123,7 @@ class ArticleModel {
                 limit: 10,//每页10条
                 offset: (page - 1) * 10,
                 'order': [
-                    ['id', 'DESC']
+                    ['article_id', 'DESC']
                 ],
                 attributes: {exclude: ['content']}
 
@@ -150,10 +148,10 @@ class ArticleModel {
      * @param id  文章ID
      * @returns {Promise<Model>}
      */
-    static async getArticleDetail(id) {
+    static async getArticleDetail(article_id) {
         return await Article.findOne({
             where: {
-                id,
+                article_id,
             },
         })
     }
@@ -163,10 +161,10 @@ class ArticleModel {
      * @param id listID
      * @returns {Promise.<boolean>}
      */
-    static async deleteArticle(id) {
+    static async deleteArticle(article_id) {
         await Article.destroy({
             where: {
-                id,
+                article_id,
             }
         })
         return true

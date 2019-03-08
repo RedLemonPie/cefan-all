@@ -9,12 +9,40 @@ module.exports = function (sequelize, DataTypes) {
             autoIncrement: true,
         },
         product_name: {
-            type: DataTypes.String,
+            type: DataTypes.STRING,
             allowNull: false,
+        },
+        product_en_name: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        product_introduce: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        product_en_introduce: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        article_id: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: 0
+        },
+        article_en_id: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: 0
         },
         category_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            defaultValue: 0
+        },
+        product_status: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: true
         },
         createdAt: {
             type: DataTypes.DATE,

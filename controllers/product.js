@@ -1,11 +1,9 @@
-const ArticleModel = require('../modules/article')
+const ProductModel = require('../modules/product')
 const db = require('../config/db');
 const Sequelize = db.sequelize;
-const Category = Sequelize.import('../schema/category');
-
 const statusCode = require('../util/status-code')
 
-class articleController {
+class productController {
     /**
      * 创建文章
      * @param ctx
@@ -14,32 +12,11 @@ class articleController {
     static async create(ctx) {
         let req = ctx.request.body;
 
-        if (req.article_title
-            && req.introduce
-            && req.category
-            && req.banner
-            && req.content
+        if (req.product_name
         ) {
             try {
-                // // 查询分类是否存在
-                // let categoryDetail = await Category.findOne({
-                //     where: {
-                //         name: req.category,
-                //     },
-                // });
-                // if (categoryDetail) {
-                //     req.categoryId = categoryDetail.id;
-                //
-                // } else {
-                //     ctx.response.status = 412;
-                //     ctx.body = statusCode.ERROR_412({
-                //         msg: '缺少此文章分类，请重新创建分类: ' + req.category
-                //     })
-                //     return false;
-                // }
-
-                const ret = await ArticleModel.createArticle(req);
-                const data = await ArticleModel.getArticleDetail(ret.id);
+                const ret = await ProductModel.createArticle(req);
+                const data = await ProductModel.getArticleDetail(ret.id);
 
                 ctx.response.status = 200;
                 ctx.body = statusCode.SUCCESS_200('创建文章成功', data);
@@ -59,17 +36,17 @@ class articleController {
         }
     }
 
-    static async search(ctx) {
-        try {
-            let data = await ArticleModel.search(ctx.query);
-            ctx.response.status = 200;
-            ctx.body = statusCode.SUCCESS_200('查询文章成功！', data)
-        } catch (e) {
-            console.log(e);
-            ctx.response.status = 412;
-            ctx.body = statusCode.ERROR_412(e);
-        }
-    }
+    // static async search(ctx) {
+    //     try {
+    //         let data = await ProductModel.(ctx.query);
+    //         ctx.response.status = 200;
+    //         ctx.body = statusCode.SUCCESS_200('查询文章成功！', data)
+    //     } catch (e) {
+    //         console.log(e);
+    //         ctx.response.status = 412;
+    //         ctx.body = statusCode.ERROR_412(e);
+    //     }
+    // }
 
     /**
      * 获取文章列表
@@ -170,4 +147,4 @@ class articleController {
     }
 }
 
-module.exports = articleController
+module.exports = productController

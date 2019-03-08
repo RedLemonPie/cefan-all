@@ -2,10 +2,6 @@ const db = require('../config/db');
 const Sequelize = db.sequelize;
 const Op = Sequelize.Op;
 const Picture = Sequelize.import('../schema/picture');
-// const Category = Sequelize.import('../schema/category');
-
-// Category.hasMany(Article); // 将会添加 categoryId 到 Article 模型
-// Article.belongsTo(Category, {as: 'Current', foreignKey: 'categoryId', constraints: false});
 
 Picture.sync({force: false});
 

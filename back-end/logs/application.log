@@ -1,0 +1,14 @@
+[2019-03-03T15:05:17.197] [ERROR] application - ReferenceError: applogger is not defined
+    at C:\Users\yao\Desktop\cefan\cefan-all\middlreware\error.js:30:13
+[2019-03-03T15:05:31.795] [ERROR] application - ReferenceError: applogger is not defined
+    at C:\Users\yao\Desktop\cefan\cefan-all\middlreware\error.js:30:13
+[2019-03-03T15:06:39.370] [ERROR] application - ReferenceError: applogger is not defined
+    at C:\Users\yao\Desktop\cefan\cefan-all\middlreware\error.js:30:13
+[2019-03-03T15:08:41.132] [ERROR] application - ReferenceError: applogger is not defined
+    at C:\Users\yao\Desktop\cefan\cefan-all\middlreware\error.js:30:13
+[2019-03-03T15:09:34.019] [ERROR] application - ReferenceError: applogger is not defined
+    at C:\Users\yao\Desktop\cefan\cefan-all\middlreware\error.js:30:13
+[2019-03-03T15:12:01.522] [ERROR] application - ReferenceError: applogger is not defined
+    at C:\Users\yao\Desktop\cefan\cefan-all\middlreware\error.js:30:13
+[2019-03-03T15:12:25.491] [ERROR] application - ReferenceError: applogger is not defined
+    at C:\Users\yao\Desktop\cefan\cefan-all\middlreware\error.js:30:13

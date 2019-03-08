@@ -1,7 +1,10 @@
 <template>
   <Form ref="categoryData" :model="categoryData" :rules="ruleValidate" :label-width="80">
-    <FormItem label="分类名称" prop="name">
-      <Input v-model="categoryData.name" placeholder="category name"></Input>
+    <FormItem label="分类名称" prop="category_name">
+      <Input v-model="categoryData.category_name" placeholder="category name"></Input>
+    </FormItem>
+    <FormItem label="父分类id" prop="parent_id">
+      <Input v-model="categoryData.parent_id" placeholder="parent_id"></Input>
     </FormItem>
     <FormItem>
       <Button @click="handleReset('categoryData')">重置</Button>
@@ -21,10 +24,11 @@
     data() {
       return {
         categoryData: {
-          name: ''
+          category_name: '',
+          parent_id: 0,
         },
         ruleValidate: {
-          name: [
+          category_name: [
             {required: true, message: 'The name cannot be empty', trigger: 'blur'}
           ]
         }

@@ -5,6 +5,9 @@ export default {
   list(params) {
     return fetch.get('/category/list', params)
   },
+  getlistbyparent(id) {
+    return fetch.get('/category/list/'+id)
+  },
 
   // 获取分类详情信息
   detail(id) {

@@ -1,27 +1,24 @@
 <template>
   <Form ref="articleData" :model="articleData" :rules="ruleValidate" :label-width="80">
     <FormItem label="文章标题" prop="title">
-      <Input v-model="articleData.title" placeholder="title"></Input>
-    </FormItem>
-    <FormItem label="文章作者" prop="author">
-      <Input v-model="articleData.author" placeholder="author"></Input>
+      <Input v-model="articleData.article_title" placeholder="title"></Input>
     </FormItem>
     <FormItem label="文章图片" prop="banner">
       <Input v-model="articleData.banner" placeholder="banner"></Input>
     </FormItem>
-    <FormItem label="文章分类" prop="category">
-      <Select
-        v-if="categoryList.length > 0"
-        v-model="articleData.category"
-        placeholder="Select category"
-        style="position:relative;z-index: 9999">
-        <Option
-          v-for="(cate, key) in categoryList"
-          :key="key"
-          :value="cate.name">
-          {{cate.name}}
-        </Option>
+    <FormItem label="分类" prop="category">
+        <Select v-model="articleData.category" placeholder="Select your category">
+        <Option value="1">广告</Option>
+        <Option value="2">产品</Option>
+        <Option value="3">公告</Option>
+        <Option value="3">通知</Option>
       </Select>
+    </FormItem>
+    <FormItem label="是否启用">
+      <i-switch v-model="articleData.status" size="large">
+        <span slot="true">On</span>
+        <span slot="false">Off</span>
+      </i-switch>
     </FormItem>
     <FormItem label="文章简介" prop="introduce">
       <Input v-model="articleData.introduce" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
@@ -42,7 +39,7 @@
   export default {
     computed: {
       ...mapState({
-        categoryList: state => state.category.categoryList
+
       })
     },
     data() {
@@ -50,7 +47,7 @@
         id: this.$route.params.id,
         articleData: {},
         ruleValidate: {
-          title: [
+          article_title: [
             {required: true, message: 'The name cannot be empty', trigger: 'blur'}
           ],
           author: [
@@ -73,8 +70,8 @@
       }
     },
     created() {
-      this.getCategory();
       this.getArticleInfo();
+      console.log(this.$route.params.id)
     },
     methods: {
       ...mapActions({
@@ -86,7 +83,7 @@
       // 获取文章信息
       async getArticleInfo() {
         try {
-          const ret = await this.getArticleDetail(this.id);
+          const ret = await this.getArticleDetail(this.$route.params.id);
           this.articleData = ret;
           this.$Message.success('获取文章成功')
 

@@ -14,7 +14,7 @@ class UserController {
      */
     static async create(ctx) {
         const user = ctx.request.body;
-
+        console.log(user)
         if (user.username && user.password) {
             // 查询用户名是否重复
             const existUser = await userModel.findUserByName(user.username)
@@ -37,7 +37,8 @@ class UserController {
                 // 签发token
                 const userToken = {
                     username: newUser.username,
-                    id: newUser.id
+                    id: newUser.id,
+                    level: newUser.level
                 }
 
                 // 储存token失效有效期1小时
@@ -72,6 +73,7 @@ class UserController {
                 const user = {
                     id: payload.id,
                     username: payload.username,
+                    level: payload.level
                 }
 
                 ctx.response.status = 200;
@@ -120,7 +122,8 @@ class UserController {
                 // 用户token
                 const userToken = {
                     username: user.username,
-                    id: user.id
+                    id: user.id,
+                    level: user.level
                 }
                 // 签发token
                 const token = jwt.sign(userToken, secret.sign, {expiresIn: '1h'});
@@ -132,7 +135,6 @@ class UserController {
                     token: token
                 })
             } else {
-
                 ctx.response.status = 412;
                 ctx.body = statusCode.ERROR_412('用户名或密码错误');
             }
@@ -161,6 +163,46 @@ class UserController {
             ctx.response.status = 412;
             ctx.body = statusCode.ERROR_412('获取失败')
 
+        }
+    }
+    /**
+     * 获取管理员列表
+     * @param ctx
+     * @returns {Promise.<void>}
+     */
+    static async getAdminList(ctx) {
+        let userList = ctx.request.body;
+
+        if (userList) {
+            const data = await userModel.getAdminList();
+
+            ctx.response.status = 200;
+            ctx.body = statusCode.SUCCESS_200('查询成功', data)
+        } else {
+
+            ctx.response.status = 412;
+            ctx.body = statusCode.ERROR_412('获取失败')
+
+        }
+    }
+    /**
+     * 更新用户信息
+     * @param ctx
+     * @returns {Promise.<void>}
+     */
+    static async update(ctx) {
+        let req = ctx.request.body;
+        let id = ctx.params.id;
+        if (req) {
+            await userModel.updateUserInfo(id, req);
+            let data = await userModel.findUserById(id);
+
+            ctx.response.status = 200;
+            ctx.body = statusCode.SUCCESS_200('更新用户信息成功！', data);
+        } else {
+
+            ctx.response.status = 412;
+            ctx.body = statusCode.ERROR_412('更新用户信息失败！')
         }
     }
 }

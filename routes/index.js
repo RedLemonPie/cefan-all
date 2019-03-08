@@ -3,11 +3,23 @@ const UserController = require('../controllers/user')
 const ArticleController = require('../controllers/article')
 const CategoryController = require('../controllers/category')
 const PictureController = require('../controllers/picture')
+const ProductController = require('../controllers/product')
+// const FilemanagerController = require('../controllers/filemanager')
 
 const router = new Router({
     prefix: '/api/v1'
 })
-
+//上传文件
+router.post('/upload', async (ctx)=>{
+        const file = ctx.request.files.file;    // 获取上传文件
+        console.log(file)
+        const reader = fs.createReadStream(file.path);    // 创建可读流
+        console.log(reader)
+        const ext = file.name.split('.').pop();        // 获取上传文件扩展名
+        const upStream = fs.createWriteStream(`upload/${Math.random().toString()}.${ext}`);        // 创建可写流
+        reader.pipe(upStream);    // 可读流通过管道写入可写流
+        return ctx.body = '上传成功';
+});
 /**
  * 用户接口
  */
@@ -21,6 +33,10 @@ router.delete('/user/delete/:id', UserController.delete);
 router.get('/user/info', UserController.getUserInfo);
 // 获取用户列表
 router.get('/user/list', UserController.getUserList);
+// 获取管理员列表
+router.get('/user/adminlist', UserController.getAdminList);
+// 修改用户信息
+router.post('/user/update/:id', UserController.update);
 
 /**
  * 文章接口
@@ -42,7 +58,7 @@ router.get('/article/search', ArticleController.search)
  * 规格接口
  */
 // 增加规格
-router.get('/category/article/list/:id', SpecController.getCategoryArticle);
+// router.get('/category/article/list/:id', SpecController.getCategoryArticle);
 // 修改规格
 // 删除规格
 // 规格列表
@@ -54,7 +70,7 @@ router.get('/category/article/list/:id', CategoryController.getCategoryArticle);
 // 增加图片
 router.post('/picture/addpicture/', PictureController.addPicture);
 // 修改图片
-router.update('/picture/updatepicture/', PictureController.updatePicture);
+router.post('/picture/updatepicture/', PictureController.updatePicture);
 // 删除图片
 router.delete('/picture/delpicture/', PictureController.delPicture);
 // 图片列表
@@ -78,7 +94,12 @@ router.delete('/category/delete/:id', CategoryController.delete);
 router.put('/category/update/:id', CategoryController.update);
 // 获取分类列表
 router.get('/category/list', CategoryController.list);
+// 获取分类列表
+router.get('/category/list/:parent_id', CategoryController.getCategoryListByParent);
 // 查询分类ID下的所有文章列表
 router.get('/category/article/list/:id', CategoryController.getCategoryArticle);
 
 module.exports = router
+
+
+

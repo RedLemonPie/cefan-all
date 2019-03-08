@@ -11,11 +11,12 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING(50),
             allowNull: false
         },
-        parent_Id: {
+        parent_id: {
            type: DataTypes.INTEGER,
            allowNull: false,
            defaultValue: 0
         },
+
     }, {
         // 如果为 true 则表的名称和 model 相同，即 user
         // 为 false MySQL创建的表名称会是复数 users

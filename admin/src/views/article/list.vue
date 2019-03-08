@@ -24,23 +24,30 @@
     data() {
       return {
         // 文章ID
-        id: '',
+        article_id: '',
         showModel: false,
         list: [],
         columns: [
           {
-            title: 'ID',
-            key: 'id',
-            width: 80,
+            title: '文章序号',
+            key: 'article_id',
+            width: 120,
             align: 'center'
           },
           {
             title: '文章标题',
-            key: 'title'
+            key: 'article_title',
+            width: 400,
           },
           {
-            title: '推荐',
-            key: 'recommend',
+            title: 'introduce',
+            key: 'introduce',
+            // width: 120,
+            align: 'center'
+          },
+          {
+            title: 'status',
+            key: 'status',
             width: 120,
             align: 'center'
           },
@@ -61,7 +68,7 @@
                   },
                   on: {
                     click: () => {
-                      this.update(params.row.id);
+                      this.update(params.row.article_id);
                     }
                   }
                 }, '修改'),
@@ -72,7 +79,7 @@
                   },
                   on: {
                     click: () => {
-                      this.id = params.row.id;
+                      this.article_id = params.row.article_id;
                       this.showModel = true;
                     }
                   }
@@ -106,14 +113,14 @@
         }
       },
       // 更新文章
-      async update(id) {
-        this.$router.push("/article/update/" + id);
+      async update(article_id) {
+        this.$router.push("/article/update/" + article_id);
       },
 
       // 移除文章
-      async remove(id) {
+      async remove(article_id) {
         try {
-          await this.deleteArticle(id);
+          await this.deleteArticle(article_id);
           this.$Message.success('删除文章成功');
           this.getArticleList();
 

@@ -103,7 +103,6 @@ export default {
   },
 
   put(url, params = {}) {
-
     return Util.ajax({
       method: 'put',
       url: url,

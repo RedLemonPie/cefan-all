@@ -17,26 +17,31 @@ module.exports = function (sequelize, DataTypes) {
         },
         email: {
             type: DataTypes.STRING(80),
-            allowNull: false
+            allowNull: true
         },
         company: {
             type: DataTypes.STRING(255),
-            allowNull: false
+            allowNull: true
         },
         realname: {
             type: DataTypes.STRING(80),
-            allowNull: false
+            allowNull: true
         },
         telphone: {
             type: DataTypes.STRING(30),
-            allowNull: false
+            allowNull: true
         },
         cancer: {
             type: DataTypes.STRING(100),
-            allowNull: false
+            allowNull: true
         },
         score: {
             type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 10
+        },
+        level: {
+            type: DataTypes.INTEGER(1),
             allowNull: false,
             defaultValue: 0
         },

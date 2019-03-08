@@ -1,7 +1,7 @@
 <template>
   <Form ref="categoryData" :model="categoryData" :rules="ruleValidate" :label-width="80">
-    <FormItem label="分类名称" prop="name">
-      <Input v-model="categoryData.name" placeholder="category name"></Input>
+    <FormItem label="分类名称" prop="category_name">
+      <Input v-model="categoryData.category_name" placeholder="category name"></Input>
     </FormItem>
     <FormItem>
       <Button @click="handleReset('categoryData')">重置</Button>

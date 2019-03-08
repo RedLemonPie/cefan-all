@@ -1,9 +1,9 @@
 <template>
   <!--indev-->
-  <!--@author: 梁凤波-->
-  <!--@date  2018/11/23 08:31-->
+  <!--@author: yry-->
+  <!--@date  2019/3/1 08:31-->
   <section class="index-wrap">
-    <img src="http://images.boblog.com/BOBLOG-03.png" alt="">
+    <!-- <img src="http://images.boblog.com/BOBLOG-03.png" alt=""> -->
   </section>
 </template>
 

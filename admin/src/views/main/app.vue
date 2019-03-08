@@ -5,7 +5,8 @@
       <Menu :active-name="activeName" theme="dark" width="auto" :open-names="[openNames]">
         <div class="layout-logo">
           <p class="layout-logo-img">
-            <img src="http://images.boblog.com/BOBLOG-02.png" alt="LOGO">
+            <!--<img src="http://images.boblog.com/BOBLOG-02.png" alt="LOGO">-->
+            <p>册帆网站管理系统</p>
           </p>
         </div>
         <Submenu v-for="(item, key) in routerList" :key="key" :name="Number(key) + 1">
@@ -81,17 +82,17 @@
         routerList: [
           {
             // 管理员管理
-            title: "管理员",
+            title: "用户管理",
             icon: 'md-person',
             children: [
               {
-                name: '首页',
-                path: '/user/index',
-                icon: 'md-list'
+                name: '管理员',
+                path: '/user/admin',
+                icon: 'md-lock'
               },
               {
-                name: '权限分配',
-                path: '/user/lock',
+                name: '用户管理',
+                path: '/user/user',
                 icon: 'md-lock'
               }
             ]
@@ -130,6 +131,48 @@
               }
             ]
           },
+          {
+            // 规格管理
+            title: "产品管理",
+            icon: 'md-pricetag',
+            children: [
+              {
+                name: '产品列表',
+                path: '/product/list',
+                icon: 'md-list'
+              },
+              {
+                name: '规格管理',
+                path: '/product/spec',
+                icon: 'md-list'
+              }
+            ]
+          },
+          {
+            // 图片管理
+            title: "图片管理",
+            icon: 'md-pricetag',
+            children: [
+              {
+                name: '图片管理',
+                path: '/picture/list',
+                icon: 'md-list'
+              },
+            ]
+          },
+          {
+            // 文件管理
+            title: "文件管理",
+            icon: 'md-pricetag',
+            children: [
+              {
+                name: '文件管理',
+                path: '/filemanager/list',
+                icon: 'md-list'
+              },
+            ]
+          },
+
         ]
       }
     },

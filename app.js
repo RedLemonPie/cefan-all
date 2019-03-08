@@ -4,6 +4,7 @@ const views = require('koa-views')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
+const koabody = require('koa-body')
 const jwt = require('koa-jwt')
 const logger = require('koa-logger')
 const cors = require('koa-cors');
@@ -11,6 +12,7 @@ const index = require('./routes/index')
 const secret = require('./config/secret')
 const err = require('./middlreware/error')
 const { applogger, accessLogger } = require('./config/log4j');
+//上传文件
 // error handler
 onerror(app)
 
@@ -26,6 +28,8 @@ app.use(jwt({secret: secret.sign}).unless({
     path: [
         // 文章详情
         /^\/api\/v1\/article\/detail/,
+        // 上传文件
+        /^\/api\/v1\/upload/,
         // 文章列表
         /^\/api\/v1\/article\/list/,
         // 登录
@@ -42,9 +46,23 @@ app.use(jwt({secret: secret.sign}).unless({
 }))
 
 // middlewares
-app.use(bodyparser({
-    enableTypes: ['json', 'form', 'text']
-}))
+// app.use(bodyparser({
+//     enableTypes: ['json', 'form', 'text']
+// }))
+app.use(koabody({
+    enableTypes: ['json', 'form', 'text'],
+    multipart: true, // 支持文件上传
+    stict: false,
+    // encoding: 'gzip',
+    formidable:{
+        uploadDir: __dirname+'/upload/', // 设置文件上传目录
+        keepExtensions: true,    // 保持文件的后缀
+        maxFieldsSize:2 * 1024 * 1024, // 文件上传大小
+        onFileBegin:(name,file) => { // 文件上传前的设置
+        // console.log(`name: ${name}`);
+        // console.log(file);
+    },
+}}))
 app.use(json())
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
