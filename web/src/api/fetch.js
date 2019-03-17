@@ -13,7 +13,6 @@ Util.ajax.interceptors.request.use(config => {
    * @type {string}
    */
 
-
   // 获取token
   config.headers.common['Authorization'] = 'Bearer ' + Vue.ls.get("web-token");
   return config
