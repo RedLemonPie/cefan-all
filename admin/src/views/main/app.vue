@@ -142,6 +142,11 @@
                 icon: 'md-list'
               },
               {
+                name: '新增产品',
+                path: '/product/create',
+                icon: 'md-list'
+              },
+              {
                 name: '规格管理',
                 path: '/product/spec',
                 icon: 'md-list'
@@ -154,20 +159,13 @@
             icon: 'md-pricetag',
             children: [
               {
-                name: '图片管理',
+                name: '图片列表',
                 path: '/picture/list',
                 icon: 'md-list'
               },
-            ]
-          },
-          {
-            // 文件管理
-            title: "文件管理",
-            icon: 'md-pricetag',
-            children: [
               {
-                name: '文件管理',
-                path: '/filemanager/list',
+                name: '新增图片',
+                path: '/picture/create',
                 icon: 'md-list'
               },
             ]

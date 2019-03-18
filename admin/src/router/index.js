@@ -119,27 +119,39 @@ export default new Router({
           }
         },
         {
-          // 文件管理
-          path: 'filemanager/list ',
-          name: 'filemanager',
-          meta: {
-            name: '文件管理',
-            icon: 'md-book'
-          },
-          component(resolve) {
-            require(['../views/filemanager/filemanager.vue'], resolve);
-          }
-        },
-        {
           // 图片管理
           path: 'picture/list',
           name: 'picture',
           meta: {
-            name: '更新分类',
+            name: '图片列表',
             icon: 'md-book'
           },
           component(resolve) {
-            require(['../views/picture/picture.vue'], resolve);
+            require(['../views/picture/list.vue'], resolve);
+          }
+        },
+        {
+          // 图片管理
+          path: 'picture/update/:id',
+          name: 'picture',
+          meta: {
+            name: '更新图片',
+            icon: 'md-book'
+          },
+          component(resolve) {
+            require(['../views/picture/update.vue'], resolve);
+          }
+        },
+        {
+          // 图片管理
+          path: 'picture/create',
+          name: 'picture',
+          meta: {
+            name: '增加图片',
+            icon: 'md-book'
+          },
+          component(resolve) {
+            require(['../views/picture/create.vue'], resolve);
           }
         },
         {
@@ -151,9 +163,34 @@ export default new Router({
             icon: 'md-book'
           },
           component(resolve) {
-            require(['../views/product/product.vue'], resolve);
+            require(['../views/product/list.vue'], resolve);
           }
         },
+        {
+          // 产品管理
+          path: 'product/create',
+          name: 'productCreate',
+          meta: {
+            name: '新增产品',
+            icon: 'md-book'
+          },
+          component(resolve) {
+            require(['../views/product/create.vue'], resolve);
+          }
+        },
+        {
+          // 产品管理
+          path: 'product/update/:id',
+          name: 'productUpdate',
+          meta: {
+            name: '更新产品',
+            icon: 'md-book'
+          },
+          component(resolve) {
+            require(['../views/product/update.vue'], resolve);
+          }
+        },
+
         {
           // 规格管理
           path: 'product/spec',

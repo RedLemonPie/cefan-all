@@ -69,8 +69,8 @@ const actions = {
    * @param params
    * @return {Promise<void>}
    */
-  async updateArticle({state, commit}, params) {
-    return await article.update(params);
+  async updateArticle({state, commit},params) {
+    return await article.update(params.id,params);
   },
 
   /**

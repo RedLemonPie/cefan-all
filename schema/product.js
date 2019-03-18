@@ -31,8 +31,13 @@ module.exports = function (sequelize, DataTypes) {
         },
         article_en_id: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
             defaultValue: 0
+        },
+        picture_url: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: ''
         },
         category_id: {
             type: DataTypes.INTEGER,

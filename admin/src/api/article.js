@@ -27,7 +27,7 @@ export default {
   },
 
   // 更新文章
-  update(params) {
-    return fetch.put('/article/update/' + params.id, params);
+  update(id,params) {
+    return fetch.put('/article/update/' + id, params);
   }
 }

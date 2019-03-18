@@ -6,7 +6,7 @@ const statusCode = require('../util/status-code')
 
 class PictureController {
     /**
-     * 创建文章
+     * 创建图片
      * @param ctx
      * @returns {Promise.<void>}
      */
@@ -17,7 +17,6 @@ class PictureController {
             && req.picture_url
             && req.picture_status
             && req.picture_position
-            && req.product_ID
         ) {
             try {
 
@@ -46,7 +45,7 @@ class PictureController {
     //     try {
     //         let data = await ArticleModel.search(ctx.query);
     //         ctx.response.status = 200;
-    //         ctx.body = statusCode.SUCCESS_200('查询文章成功！', data)
+    //         ctx.body = statusCode.SUCCESS_200('查询图片成功！', data)
     //     } catch (e) {
     //         console.log(e);
     //         ctx.response.status = 412;
@@ -55,7 +54,7 @@ class PictureController {
     // }
 
     /**
-     * 获取文章列表
+     * 获取图片列表
      * @param ctx
      * @returns {Promise.<void>}
      */
@@ -64,7 +63,7 @@ class PictureController {
         try {
             const data = await PictureModel.getPictureList(params);
             ctx.response.status = 200;
-            ctx.body = statusCode.SUCCESS_200('查询文章列表成功！', data)
+            ctx.body = statusCode.SUCCESS_200('查询图片列表成功！', data)
         } catch (e) {
 
             ctx.response.status = 412;
@@ -73,7 +72,7 @@ class PictureController {
     }
 
     /**
-     * 查询单条文章数据
+     * 查询单条图片数据
      * @param ctx
      * @returns {Promise.<void>}
      */
@@ -82,12 +81,11 @@ class PictureController {
 
         if (id) {
             try {
-                let data = await ArticleModel.getArticleDetail(id);
+                let data = await PictureModel.getPictureDetail(id);
                 ctx.response.status = 200;
                 ctx.body = statusCode.SUCCESS_200('查询成功！', {
                     data
                 });
-
             } catch (err) {
                 ctx.response.status = 412;
                 ctx.body = statusCode.ERROR_412({
@@ -97,13 +95,13 @@ class PictureController {
             }
         } else {
             ctx.response.status = 412;
-            ctx.body = statusCode.ERROR_412('文章ID必须传');
+            ctx.body = statusCode.ERROR_412('图片ID必须传');
         }
     }
 
 
     /**
-     * 删除文章数据
+     * 删除图片数据
      * @param ctx
      * @returns {Promise.<void>}
      */
@@ -117,7 +115,7 @@ class PictureController {
                 ctx.body = statusCode.SUCCESS_200('删除成功！');
 
             } catch (err) {
-                ctx.response.status = 200;
+                ctx.response.status = 412;
                 ctx.body = statusCode.SUCCESS_200({
                     msg: '删除失败',
                     err,

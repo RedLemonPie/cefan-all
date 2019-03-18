@@ -4,7 +4,23 @@
       <Input v-model="articleData.article_title" placeholder="title"></Input>
     </FormItem>
     <FormItem label="文章图片" prop="banner">
-      <Input v-model="articleData.banner" placeholder="banner"></Input>
+      <img :src="articleData.banner" width="200px" height="100px">
+      <Upload
+        ref="upload"
+        :show-upload-list="false"
+        :on-success="handleSuccess"
+        :format="['jpg','jpeg','png']"
+        :on-format-error="handleFormatError"
+        :on-exceeded-size="handleMaxSize"
+        :max-size="2048"
+        multiple
+        type="drag"
+        action="http://localhost:3000/api/v1/upload"
+        style="display: inline-block;width:58px;">
+        <div style="width: 58px;height:58px;line-height: 58px;">
+          <Icon type="ios-camera" size="20"></Icon>
+        </div>
+      </Upload>
     </FormItem>
     <FormItem label="分类" prop="category">
         <Select v-model="articleData.category" placeholder="Select your category">
@@ -45,7 +61,9 @@
     data() {
       return {
         id: this.$route.params.id,
-        articleData: {},
+        articleData: {
+
+        },
         ruleValidate: {
           article_title: [
             {required: true, message: 'The name cannot be empty', trigger: 'blur'}
@@ -80,6 +98,23 @@
         getCategoryList: 'category/getCategoryList'
       }),
 
+      handleFormatError (file) {
+        this.$Notice.warning({
+          title: 'The file format is incorrect',
+          desc: 'File format of ' + file.name + ' is incorrect, please select jpg or png.'
+        });
+      },
+      handleMaxSize (file) {
+        this.$Notice.warning({
+          title: 'Exceeding file size limit',
+          desc: 'File  ' + file.name + ' is too large, no more than 2M.'
+        });
+      },
+      handleSuccess (res, file) {
+        console.log(res.url)
+        this.articleData.banner = res.url
+      },
+
       // 获取文章信息
       async getArticleInfo() {
         try {
@@ -105,13 +140,13 @@
 
       // 提交
       handleSubmit(name) {
+        this.articleData.id = this.id;
         this.$refs[name].validate(async (valid) => {
           if (valid) {
             try {
               await this.updateArticle(this.articleData);
               this.$Message.success('更新成功');
               window.location.href = "/article/list";
-
             } catch (e) {
               this.$Message.error('更新失败')
             }

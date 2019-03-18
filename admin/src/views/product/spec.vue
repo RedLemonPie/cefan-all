@@ -1,56 +1,56 @@
 <template>
-  <section class="list-wrap">
-    <div>
-      <Button type="primary" @click="showCreateModel = true">新增</Button>
-      <Input search enter-button="Search" placeholder="输入用户名" style="width: 40%" />
-    </div>
-    <div class="list" v-if="list.length > 0">
-      <Table border :columns="columns" :data="list"></Table>
-    </div>
-    <Modal
-      v-model="showCreateModel"
-      title="提示"
-      :loading="loading"
-      @on-ok="check('formItem')"
-    >
-      <Form ref="formItem" :model="formItem" :rules="ruleInline" inline>
-        <FormItem prop="username">
-          <Input type="text" v-model="formItem.username" placeholder="Username">
-            <Icon type="ios-person-outline" slot="prepend"></Icon>
-          </Input>
-        </FormItem>
-        <FormItem prop="password">
-          <Input type="password" v-model="formItem.password" placeholder="Password">
-            <Icon type="ios-lock-outline" slot="prepend"></Icon>
-          </Input>
-        </FormItem>
-        <FormItem prop="realname" label="真实姓名">
-          <Input v-model="formItem.realname" placeholder="realname">
-            <Icon type="ios-lock-outline" slot="prepend"></Icon>
-          </Input>
-        </FormItem>
-        <FormItem label="权限等级" prop="level">
-          <Select v-model="formItem.level">
-            <Option value="1">编辑者</Option>
-            <Option value="2">管理员</Option>
-            <!--<Option value="3">超级管理员</Option>-->
-          </Select>
-        </FormItem>
-      </Form>
-      <div slot="footer">
-        <Button size="large" long  @click="check('formItem')">创建</Button>
-      </div>
-    </Modal>
-    <div class="model">
-      <Modal
-        v-model="showDelModel"
-        title="提示"
-        @on-ok="remove(id)">
-        <p>确定删除用户吗</p>
-      </Modal>
-    </div>
-    <div v-if=""></div>
-  </section>
+  <!--<section class="list-wrap">-->
+    <!--<div>-->
+      <!--<Button type="primary" @click="showCreateModel = true">新增</Button>-->
+      <!--<Input search enter-button="Search" placeholder="输入用户名" style="width: 40%" />-->
+    <!--</div>-->
+    <!--<div class="list" v-if="list.length > 0">-->
+      <!--<Table border :columns="columns" :data="list"></Table>-->
+    <!--</div>-->
+    <!--<Modal-->
+      <!--v-model="showCreateModel"-->
+      <!--title="提示"-->
+      <!--:loading="loading"-->
+      <!--@on-ok="check('formItem')"-->
+    <!--&gt;-->
+      <!--<Form ref="formItem" :model="formItem" :rules="ruleInline" inline>-->
+        <!--<FormItem prop="username">-->
+          <!--<Input type="text" v-model="formItem.username" placeholder="Username">-->
+            <!--<Icon type="ios-person-outline" slot="prepend"></Icon>-->
+          <!--</Input>-->
+        <!--</FormItem>-->
+        <!--<FormItem prop="password">-->
+          <!--<Input type="password" v-model="formItem.password" placeholder="Password">-->
+            <!--<Icon type="ios-lock-outline" slot="prepend"></Icon>-->
+          <!--</Input>-->
+        <!--</FormItem>-->
+        <!--<FormItem prop="realname" label="真实姓名">-->
+          <!--<Input v-model="formItem.realname" placeholder="realname">-->
+            <!--<Icon type="ios-lock-outline" slot="prepend"></Icon>-->
+          <!--</Input>-->
+        <!--</FormItem>-->
+        <!--<FormItem label="权限等级" prop="level">-->
+          <!--<Select v-model="formItem.level">-->
+            <!--<Option value="1">编辑者</Option>-->
+            <!--<Option value="2">管理员</Option>-->
+            <!--&lt;!&ndash;<Option value="3">超级管理员</Option>&ndash;&gt;-->
+          <!--</Select>-->
+        <!--</FormItem>-->
+      <!--</Form>-->
+      <!--<div slot="footer">-->
+        <!--<Button size="large" long  @click="check('formItem')">创建</Button>-->
+      <!--</div>-->
+    <!--</Modal>-->
+    <!--<div class="model">-->
+      <!--<Modal-->
+        <!--v-model="showDelModel"-->
+        <!--title="提示"-->
+        <!--@on-ok="remove(id)">-->
+        <!--<p>确定删除用户吗</p>-->
+      <!--</Modal>-->
+    <!--</div>-->
+    <!--<div v-if=""></div>-->
+  <!--</section>-->
 </template>
 
 <script>

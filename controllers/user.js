@@ -127,11 +127,11 @@ class UserController {
                 }
                 // 签发token
                 const token = jwt.sign(userToken, secret.sign, {expiresIn: '1h'});
-
                 ctx.response.status = 200;
                 ctx.body = statusCode.SUCCESS_200('登录成功', {
                     id: user.id,
                     username: user.username,
+                    level: user.level,
                     token: token
                 })
             } else {

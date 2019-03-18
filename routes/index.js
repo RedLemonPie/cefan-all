@@ -4,21 +4,20 @@ const ArticleController = require('../controllers/article')
 const CategoryController = require('../controllers/category')
 const PictureController = require('../controllers/picture')
 const ProductController = require('../controllers/product')
+const FiledbController = require('../controllers/filedb')
 // const FilemanagerController = require('../controllers/filemanager')
-
+const server = 'http://localhost:3000/upload/';
 const router = new Router({
     prefix: '/api/v1'
 })
+
+
 //上传文件
-router.post('/upload', async (ctx)=>{
-        const file = ctx.request.files.file;    // 获取上传文件
-        console.log(file)
-        const reader = fs.createReadStream(file.path);    // 创建可读流
-        console.log(reader)
-        const ext = file.name.split('.').pop();        // 获取上传文件扩展名
-        const upStream = fs.createWriteStream(`upload/${Math.random().toString()}.${ext}`);        // 创建可写流
-        reader.pipe(upStream);    // 可读流通过管道写入可写流
-        return ctx.body = '上传成功';
+router.post('/upload',async (ctx)=>{
+    // console.log(ctx.request.files);
+    let url = server + ctx.uploadpath.file;
+    ctx.request.files.url = url
+    ctx.body = JSON.stringify(ctx.request.files);
 });
 /**
  * 用户接口
@@ -55,18 +54,18 @@ router.get('/article/list', ArticleController.list);
 router.get('/article/search', ArticleController.search)
 
 
-// 创建文章
+// 创建产品
 router.post('/product/create', ProductController.create);
-// 获取文章详情
+// 获取产品
 router.get('/product/detail/:product_id', ProductController.detail);
-// 删除文章
+// 删除产品
 router.delete('/product/delete/:product_id', ProductController.delete);
-// 更改文章
-router.post('/product/update/:product_id', ProductController.update);
-// 获取文章列表
+// 更改产品
+router.put('/product/update/:id', ProductController.update);
+// 获取产品列表
 router.get('/product/list', ProductController.list);
 // 搜索文章
-// router.get('/article/search', ProductController.search)
+router.get('/article/search/:product_name', ProductController.findbyname)
 
 /**
  * 规格接口
@@ -82,18 +81,27 @@ router.get('/category/article/list/:id', CategoryController.getCategoryArticle);
  * 图片接口
  */
 // 增加图片
-router.post('/picture/addpicture/', PictureController.addPicture);
+router.post('/picture/create/', PictureController.addPicture);
 // 修改图片
-router.post('/picture/updatepicture/', PictureController.updatePicture);
+router.put('/picture/update/:id', PictureController.updatePicture);
 // 删除图片
-router.delete('/picture/delpicture/', PictureController.delPicture);
+router.delete('/picture/delete/:picture_id', PictureController.delPicture);
 // 图片列表
-router.get('/picture/getpicturelist/', PictureController.getPictureList);
+router.get('/picture/list/', PictureController.getPictureList);
 // 图片详情
-router.get('/picture/getpicturedetail/:id', PictureController.getPictureDetail);
+router.get('/picture/detail/:id', PictureController.getPictureDetail);
 // 根据产品id获取图片
-// 根据分类获取图片
 
+// 根据分类获取图片
+router.post('/file/create/', FiledbController.addFile);
+// 修改图片
+router.put('/file/update/:id', FiledbController.updateFile);
+// 删除图片
+router.delete('/file/delete/:file_id', FiledbController.delFile);
+// 图片列表
+router.get('/file/list/', FiledbController.getFileList);
+// 图片详情
+router.get('/file/detail/:id', FiledbController.getFileDetail);
 
 /**
  * 分类接口

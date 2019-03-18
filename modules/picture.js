@@ -71,22 +71,22 @@ class PictureModel {
      */
     static async getPictureList(params) {
         let ret = null;
-        let {page = 1, picture_position, product_ID, picture_status} = params;
+        let {page = 1, picture_position, product_id, picture_status} = params;
 
         if (picture_position) {
             ret = await Picture.findAndCountAll({
                 limit: 20,//每页10条
                 offset: (page - 1) * 20,
                 where: {
-                    position: position
+                    picture_position
                 },
                 'order': [
-                    ['id', 'DESC']
+                    ['picture_id', 'DESC']
                 ],
                 attributes: {exclude: ['content']}
             });
 
-        } else if (product_ID) {
+        } else if (product_id) {
             ret = await Picture.findAndCountAll({
                 limit: 20,//每页10条
                 offset: (page - 1) * 20,
@@ -94,7 +94,7 @@ class PictureModel {
                     product_ID
                 },
                 'order': [
-                    ['id', 'DESC']
+                    ['product_id', 'DESC']
                 ],
                 attributes: {exclude: ['content']}
             });
@@ -107,7 +107,7 @@ class PictureModel {
                     picture_status
                 },
                 'order': [
-                    ['id', 'DESC']
+                    ['picture_id', 'DESC']
                 ],
                 attributes: {exclude: ['content']}
             });
@@ -117,7 +117,7 @@ class PictureModel {
                 limit: 20,//每页10条
                 offset: (page - 1) * 20,
                 'order': [
-                    ['id', 'DESC']
+                    ['product_id', 'DESC']
                 ],
                 attributes: {exclude: ['content']}
 

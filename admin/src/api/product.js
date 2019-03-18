@@ -1,43 +1,36 @@
 import fetch from './fetch';
 
 export default {
-  // 获取文章列表
+  // 获取产品列表
   list(params) {
     return fetch.get('/product/list', params)
   },
 
-  // 获取文章详情信息
+  // 获取产品详情信息
   detail(id) {
-    return fetch.get('/article/detail/' + id);
+    return fetch.get('/product/detail/' + id);
   },
 
-  // 搜索文章
+  // 搜索产品
   search(params) {
     return fetch.get('/product/search', params)
   },
 
-  // 新建文章
+  // 新建产品
   create(params) {
     return fetch.post('/product/create', params);
   },
 
-  // 删除文章
+  // 删除产品
   delete(id) {
     return fetch.delete('/product/delete/' + id);
   },
 
-  // 更新文章
+  // 更新产品
   update(params) {
+    console.log(params)
     return fetch.put('/product/update/' + params.id, params);
   },
 
-  // 更新文章
-  updateFile(params) {
-    return fetch.put('/product/updatefile/' + params.id, params);
-  },
-  // 更新文章
-  updateSpec(params) {
-    return fetch.put('/product/updatespec/' + params.id, params);
-  },
 
 }

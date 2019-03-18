@@ -33,7 +33,7 @@ class ArticleModel {
      * @param data  事项的状态
      * @returns {Promise.<boolean>}
      */
-    static async updateArticle(id, data) {
+    static async updateArticle(article_id, data) {
         await Article.update({
             article_title: data.article_title,
             introduce: data.introduce,
@@ -43,9 +43,9 @@ class ArticleModel {
             content: data.content
         }, {
             where: {
-                id
+                article_id
             },
-            fields: ['title', 'author', 'introduce', 'category', 'banner', 'content', 'recommend']
+            fields: ['article_title', 'introduce', 'category', 'banner', 'content', 'recommend']
         });
         return true
     }

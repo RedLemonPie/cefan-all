@@ -155,11 +155,9 @@ class articleController {
     static async update(ctx) {
         let req = ctx.request.body;
         let id = ctx.params.id;
-
         if (req) {
             await ArticleModel.updateArticle(id, req);
             let data = await ArticleModel.getArticleDetail(id);
-
             ctx.response.status = 200;
             ctx.body = statusCode.SUCCESS_200('更新文章成功！', data);
         } else {

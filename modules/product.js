@@ -1,22 +1,21 @@
 const db = require('../config/db')
 const Sequelize = db.sequelize
 const Product = Sequelize.import('../schema/Product.js')
-
 const Category = Sequelize.import('../schema/category');
 
-Category.hasMany(Product); // 将会添加 categoryId 到 Article 模型
+// Category.hasMany(Product);
 Product.belongsTo(Category, {foreignKey: 'category_id', constraints: false});
 
 Product.sync({force: false});
 
 class ProductModel {
     /**
-     * 创建用户
+     * 创建产品
      * @param user
      * @returns {Promise<boolean>}
      */
     static async create(product) {
-        let {product_name,product_en_name,product_introduce,product_en_introduce,article_id,article_en_id,category_id,product_status} = product;
+        let {product_name,product_en_name,product_introduce,product_en_introduce,article_id,article_en_id,picture_url,category_id,product_status} = product;
         console.log(product)
         await Product.create({
             product_name,
@@ -25,6 +24,7 @@ class ProductModel {
             product_en_introduce,
             article_id,
             article_en_id,
+            picture_url,
             category_id,
             product_status
         })
@@ -51,26 +51,29 @@ class ProductModel {
      */
     static async findAllProduct() {
         return await Product.findAll({
-            attributes: ['product_name','product_en_name','product_introduce','product_en_introduce','article_id','article_en_id','category_id','product_status'
+            attributes: ['product_id','product_name','product_en_name','product_introduce','product_en_introduce','article_id','article_en_id','category_id','product_status'
             ]
         })
     }
 
     /**
-     * 查询用户信息
+     * 查询产品信息
      * @param username  姓名
      * @returns {Promise.<*>}
      */
-    static async findProductByName(product_name) {
+    static async findProductByName(product_name,product_en_name) {
         return await Product.findOne({
             where: {
-                product_name
+                $or:{
+                    product_name,
+                    product_en_name
+                }
             }
         })
     }
 
     /**
-     * 查询用户信息
+     * 查询产品信息
      * @param username  姓名
      * @returns {Promise.<*>}
      */
@@ -81,9 +84,20 @@ class ProductModel {
             }
         })
     }
-
     /**
-     * 更新用户信息
+     * 根据状态查询产品信息
+     * @param username  姓名
+     * @returns {Promise.<*>}
+     */
+    static async findProductById(product_id) {
+        return await Product.findOne({
+            where: {
+                product_id
+            }
+        })
+    }
+    /**
+     * 更新产品信息
      * @param id  用户ID
      * @param data  事项的状态
      * @returns {Promise.<boolean>}
@@ -96,6 +110,7 @@ class ProductModel {
             product_en_introduce: data.product_en_introduce,
             article_id: data.article_id,
             article_en_id: data.article_en_id,
+            picture_url: data.picture_url,
             category_id: data.category_id,
             product_status: data.product_status
         }, {

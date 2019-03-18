@@ -10,7 +10,7 @@
       <Modal
         v-model="showModel"
         title="提示"
-        @on-ok="remove(id)">
+        @on-ok="remove(article_id)">
         <p>确定删除文章吗</p>
       </Modal>
     </div>
@@ -38,6 +38,11 @@
             title: '文章标题',
             key: 'article_title',
             width: 400,
+          },
+          {
+            title: '文章分类',
+            key: 'category',
+            width: 100,
           },
           {
             title: 'introduce',

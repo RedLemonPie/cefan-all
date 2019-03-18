@@ -9,6 +9,7 @@ import 'iview/dist/styles/iview.css';
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 
+
 Vue.config.productionTip = false
 Vue.use(VueLocalStorage);
 Vue.use(iView);
